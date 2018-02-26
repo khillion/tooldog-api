@@ -1,0 +1,45 @@
+swagger: "2.0"
+
+info:
+  title: "{{title}}"
+  version: "1.0"
+
+basePath: /v1.0
+
+paths:
+  /runtooldog/{tool_id}:
+    get:
+      summary: Run tooldog
+      description: Run tooldog on a tooldog
+      operationId: index.run_tooldog
+      produces:
+        # FIXME: for dev
+        - text/plain;
+      responses:
+        200:
+          description: tooldog response
+          schema:
+            type: string
+          examples:
+            "text/plain": "Too long to show"
+      parameters:
+        - name: tool_id
+          in: path
+          description: ID of the tool on bio.tools
+          required: true
+          type: string
+        - name: format
+          in: query
+          description: Choice of tool descriptor
+          required: false
+          default: galaxy
+          type: string
+          enum: [cwl, galaxy]
+        - name: run
+          in: query
+          description: |+
+            Select which part of ToolDog needs to be run.
+            Both analyse and annotate by default.
+          required: false
+          type: string
+          enum: [analyse, annotate]
